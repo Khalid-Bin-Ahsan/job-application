@@ -31,25 +31,26 @@
     <!-- tailwind cdn -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
-  <body>
+  <body class="bg-[#F5F5F7]">
+    <!-- #dcdcdcf5 -->
     <header class="container mx-auto my-[60px] w-[80%]">
       <div class="header-name">
-        <h2 class="text-[#002C5C] font-extrabold text-xl">
+        <h2 class="text-[#002C5C] font-extrabold text-[32px] mb-5">
           Job Application Tracker
         </h2>
       </div>
       <div class="info-container grid grid-cols-3 gap-4">
-        <div class="p-5 border-red-600 rounded-lg">
+        <div class="p-5 border-red-600 rounded-lg bg-white">
           <p class="font-medium text-[14px] text-[#323B49]">Total</p>
           <p id="totalCount" class="font-bold text-[24px] text-[#002B70]">0</p>
         </div>
-        <div class="p-5 border-red-600 rounded-lg">
+        <div class="p-5 border-red-600 rounded-lg bg-white">
           <p class="font-medium text-[14px] text-[#323B49]">Interview</p>
           <p id="interviewCount" class="font-bold text-[24px] text-green-600">
             10
           </p>
         </div>
-        <div class="p-5 border-red-600 rounded-lg">
+        <div class="p-5 border-red-600 rounded-lg bg-white">
           <p class="font-medium text-[14px] text-[#323B49]">Rejected</p>
           <p id="rejectedCount" class="font-bold text-[24px] text-red-600">
             10
@@ -59,7 +60,7 @@
     </header>
     <main>
       <section class="container mx-auto border-red-600 w-[80%]">
-        <div class="abailable-container">
+        <div class="abailable-container bg-white p-6 rounded-lg">
           <div class="available flex justify-between mb-6">
             <p class="text-[#002C5C] font-extrabold text-xl">Available Jobs</p>
             <p class="text-[#64748B]">0 Jobs</p>
@@ -68,21 +69,21 @@
             <button
               onclick="toggleStyle('all-filter-btn')"
               id="all-filter-btn"
-              class="bg-[#3b82f6] text-white py-2 px-5 rounded-lg"
+              class="bg-[#3b82f6] text-white py-2 px-5 rounded-lg hover:bg-sky-700"
             >
               All
             </button>
             <button
               onclick="toggleStyle('interview-filter-btn')"
               id="interview-filter-btn"
-              class="text-[#64748B] py-2 px-5 rounded-lg"
+              class="text-[#64748B] py-2 px-5 rounded-lg hover:bg-sky-700"
             >
               Interviewed
             </button>
             <button
               onclick="toggleStyle('reject-filter-btn')"
               id="reject-filter-btn"
-              class="text-[#64748B] py-2 px-5 rounded-lg"
+              class="text-[#64748B] py-2 px-5 rounded-lg hover:bg-sky-700"
             >
               Rejected
             </button>
@@ -94,7 +95,7 @@
         class="container mx-auto my-[60px] w-[80%] space-y-4"
       >
         <!-- card 1 -->
-        <div class="card flex justify-between border-2 border-red-500 p-6">
+        <div class="card flex justify-between p-6 bg-white rounded-lg">
           <!-- info -->
           <div class="space-y-4">
             <h2 class="text-[#002C5C] font-extrabold text-xl">
@@ -116,13 +117,13 @@
             <div class="cardBtn flex gap-2">
               <button
                 type="button"
-                class="interview-btn border-2 border-green-500 rounded-md p-2 text-green-500 font-semibold"
+                class="interview-btn border-2 border-green-500 hover:bg-green-700 rounded-md p-2 text-green-500 font-semibold"
               >
                 INTERVIEW
               </button>
               <button
                 type="button"
-                class="reject-btn border-2 border-red-500 rounded-md p-2 text-red-500 font-semibold"
+                class="reject-btn border-2 border-red-500 hover:bg-red-300 rounded-md p-2 text-red-500 font-semibold"
               >
                 REJECTED
               </button>
@@ -130,7 +131,7 @@
           </div>
           <!-- delete -->
           <div
-            class="button-delete flex items-center justify-center h-14 w-12 border-2 border-purple-600"
+            class="button-delete flex items-center justify-center h-10 w-10 hover:bg-red-700 rounded-full"
           >
             <button>
               <span><i class="fa-regular fa-trash-can"></i></span>
@@ -138,7 +139,7 @@
           </div>
         </div>
         <!-- card 2 -->
-        <div class="card flex justify-between border-2 border-red-500 p-6">
+        <div class="card flex justify-between p-6 bg-white rounded-lg">
           <!-- info -->
           <div class="space-y-4">
             <h2 class="text-[#002C5C] font-extrabold text-xl">
@@ -160,13 +161,13 @@
             <div class="cardBtn flex gap-2">
               <button
                 type="button"
-                class="interview-btn border-2 border-green-500 rounded-md p-2 text-green-500 font-semibold"
+                class="interview-btn border-2 border-green-500 hover:bg-green-700 rounded-md p-2 text-green-500 font-semibold"
               >
                 INTERVIEW
               </button>
               <button
                 type="button"
-                class="reject-btn border-2 border-red-500 rounded-md p-2 text-red-500 font-semibold"
+                class="reject-btn border-2 border-red-500 hover:bg-red-300 rounded-md p-2 text-red-500 font-semibold"
               >
                 REJECTED
               </button>
@@ -174,7 +175,7 @@
           </div>
           <!-- delete -->
           <div
-            class="button-delete flex items-center justify-center h-14 w-12 border-2 border-purple-600"
+            class="button-delete flex items-center justify-center h-10 w-10 hover:bg-red-700 rounded-full"
           >
             <button>
               <span><i class="fa-regular fa-trash-can"></i></span>
@@ -182,7 +183,7 @@
           </div>
         </div>
         <!-- card 3 -->
-        <div class="card flex justify-between border-2 border-red-500 p-6">
+        <div class="card flex justify-between p-6 bg-white rounded-lg">
           <!-- info -->
           <div class="space-y-4">
             <h2 class="text-[#002C5C] font-extrabold text-xl">
@@ -204,13 +205,13 @@
             <div class="cardBtn flex gap-2">
               <button
                 type="button"
-                class="interview-btn border-2 border-green-500 rounded-md p-2 text-green-500 font-semibold"
+                class="interview-btn border-2 border-green-500 hover:bg-green-700 rounded-md p-2 text-green-500 font-semibold"
               >
                 INTERVIEW
               </button>
               <button
                 type="button"
-                class="reject-btn border-2 border-red-500 rounded-md p-2 text-red-500 font-semibold"
+                class="reject-btn border-2 border-red-500 hover:bg-red-300 rounded-md p-2 text-red-500 font-semibold"
               >
                 REJECTED
               </button>
@@ -218,7 +219,7 @@
           </div>
           <!-- delete -->
           <div
-            class="button-delete flex items-center justify-center h-14 w-12 border-2 border-purple-600"
+            class="button-delete flex items-center justify-center h-10 w-10 hover:bg-red-700 rounded-full"
           >
             <button>
               <span><i class="fa-regular fa-trash-can"></i></span>
@@ -227,6 +228,20 @@
         </div>
       </section>
     </main>
+
+    <section id="empty-info">
+      <div class="container mx-auto w-[80%] justify-center">
+        <div class="text-center items-center py-[60px] bg-white rounded-lg">
+          <img src="images/jobs.png" alt="" srcset="" class="mx-auto mb-5" />
+          <h2 class="text-[#002C5C] font-extrabold text-xl gap-1">
+            No jobs available
+          </h2>
+          <p class="text-[#64748B]">
+            Check back soon for new job opportunities
+          </p>
+        </div>
+      </div>
+    </section>
     <!-- javascript -->
     <script src="script.js"></script>
   </body>
