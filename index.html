@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application Tracker</title>
+    <link rel="icon" href="images/search.png" />
+
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        font-family: "Geist", sans-serif;
+      }
+    </style>
+
+    <!-- tailwind cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <header class="container mx-auto border-2">
+      <div class="header-name">
+        <h2 class="text-[#002C5C] font-extrabold text-xl">
+          Job Application Tracker
+        </h2>
+      </div>
+      <div class="info-container grid grid-cols-3 gap-4">
+        <div class="p-5 border-2 border-red-600">
+          <p class="font-medium text-[14px] text-[#323B49]">Total</p>
+          <p class="font-bold text-[24px] text-[#002B70]">9</p>
+        </div>
+        <div class="p-5 border-2 border-red-600">
+          <p class="font-medium text-[14px] text-[#323B49]">Interview</p>
+          <p class="font-bold text-[24px] text-green-600">9</p>
+        </div>
+        <div class="p-5 border-2 border-red-600">
+          <p class="font-medium text-[14px] text-[#323B49]">Rejected</p>
+          <p class="font-bold text-[24px] text-red-600">9</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="site-body container mx-auto border-2 border-red-600">
+      <div class="body-container">
+        <div class="available text-[#002C5C] font-extrabold text-xl">
+          <p>Available Jobs</p>
+          <p>0</p>
+        </div>
+        <div class="buttons-of-body flex gap-2">
+          <button class="p-y-[10px] p-x-[32px]">All</button>
+          <button class="p-y-[10px] p-x-[32px]">Interviewed</button>
+          <button class="p-y-[10px] p-x-[32px]">Rejected</button>
+        </div>
+        <div class="empty-page"></div>
+      </div>
+    </section>
+  </body>
+</html>
