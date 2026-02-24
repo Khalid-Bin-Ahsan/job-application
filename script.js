@@ -73,7 +73,6 @@ function renderFiltered(list) {
   allCardsSection.classList.add("hidden");
   filteredSection.classList.remove("hidden");
 
-  // 🔥 FIXED CONTAINER CLASSES
   filteredSection.className = "container mx-auto my-[60px] w-[80%] space-y-4";
 
   filteredSection.innerHTML = "";
@@ -83,7 +82,6 @@ function renderFiltered(list) {
     filteredSection.appendChild(div);
   });
 
-  // 🔥 FORMAT: "2 of 8 Jobs"
   availableCountText.innerText = `${list.length} of ${allCardsSection.children.length} Jobs`;
 
   checkEmpty(list.length);
@@ -179,7 +177,6 @@ function moveToInterview(card, name) {
   interviewList = interviewList.filter((item) => item.companyName !== name);
   interviewList.push(data);
 
-  // 🔥 UPDATE ALL TAB ORIGINAL CARD
   updateAllTabStatus(name, "Interviewed");
 
   updateCardStatus(card, "Interviewed");
@@ -196,7 +193,6 @@ function moveToRejected(card, name) {
   rejectedList = rejectedList.filter((item) => item.companyName !== name);
   rejectedList.push(data);
 
-  // 🔥 UPDATE ALL TAB ORIGINAL CARD
   updateAllTabStatus(name, "Rejected");
 
   updateCardStatus(card, "Rejected");
