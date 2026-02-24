@@ -1,118 +1,210 @@
 let interviewList = [];
-let RejectedList = [];
+let rejectedList = [];
 
-let total = document.getElementById("totalCount");
-let interviewCount = document.getElementById("interviewCount");
-let rejectedCount = document.getElementById("rejectedCount");
+const total = document.getElementById("totalCount");
+const interviewCount = document.getElementById("interviewCount");
+const rejectedCount = document.getElementById("rejectedCount");
 
 const allFilterBtn = document.getElementById("all-filter-btn");
 const interviewFilterBtn = document.getElementById("interview-filter-btn");
 const rejectFilterBtn = document.getElementById("reject-filter-btn");
 
-const allCardsCount = document.getElementById("allCards");
-const mainContainer = document.querySelector("main");
+const allCardsSection = document.getElementById("allCards");
 const filteredSection = document.getElementById("filtered-section");
-// console.log(allCardsCount.children.length);
-// console.log(mainContainer);
+const emptySection = document.getElementById("empty-card-body");
+const availableCountText = document.querySelector(".available p:last-child");
+
+let currentTab = "all";
+
+document.querySelectorAll(".card").forEach((card) => {
+  card.classList.add(
+    "transition",
+    "duration-300",
+    "hover:shadow-xl",
+    "hover:-translate-y-1",
+  );
+});
 
 function calculateCount() {
-  total.innerText = allCardsCount.children.length;
+  total.innerText = allCardsSection.children.length;
   interviewCount.innerText = interviewList.length;
-  rejectedCount.innerText = RejectedList.length;
+  rejectedCount.innerText = rejectedList.length;
 }
-calculateCount();
+
+function checkEmpty(count) {
+  if (count === 0) {
+    emptySection.classList.remove("hidden");
+  } else {
+    emptySection.classList.add("hidden");
+  }
+}
 
 function toggleStyle(id) {
-  // removing bg color of preselected one
-  allFilterBtn.classList.remove("bg-[#3b82f6]", "text-white");
-  interviewFilterBtn.classList.remove("bg-[#3b82f6]", "text-white");
-  rejectFilterBtn.classList.remove("bg-[#3b82f6]", "text-white");
-  // making all same as base
-  allFilterBtn.classList.add("text-[#64748B]");
-  interviewFilterBtn.classList.add("text-[#64748B]");
-  rejectFilterBtn.classList.add("text-[#64748B]");
+  [allFilterBtn, interviewFilterBtn, rejectFilterBtn].forEach((btn) => {
+    btn.classList.remove("bg-[#3b82f6]", "text-white");
+    btn.classList.add("text-[#64748B]");
+  });
 
-  //   adding bg on current button
   const selected = document.getElementById(id);
   selected.classList.remove("text-[#64748B]");
   selected.classList.add("bg-[#3b82f6]", "text-white");
-  if (id == "interview-filter-btn") {
-    allCardSection.classList.add("hidden");
-    filteredSection.classList.remove("hidden");
-  } else if ((id = "all-filter.btn")) {
-    allCardSection.classList.remove("hidden");
-    filteredSection.classList.add("hidden");
+
+  if (id === "all-filter-btn") {
+    currentTab = "all";
+    showAll();
+  } else if (id === "interview-filter-btn") {
+    currentTab = "interview";
+    renderFiltered(interviewList);
+  } else if (id === "reject-filter-btn") {
+    currentTab = "rejected";
+    renderFiltered(rejectedList);
   }
 }
 
-mainContainer.addEventListener("click", function (event) {
-  console.log(event.target.classList.contains("interview-btn"));
+function showAll() {
+  filteredSection.classList.add("hidden");
+  allCardsSection.classList.remove("hidden");
+
+  availableCountText.innerText = `${allCardsSection.children.length} Jobs`;
+  checkEmpty(allCardsSection.children.length);
+}
+
+function renderFiltered(list) {
+  allCardsSection.classList.add("hidden");
+  filteredSection.classList.remove("hidden");
+  filteredSection.innerHTML = "";
+
+  list.forEach((job) => {
+    let div = createCard(job);
+    filteredSection.appendChild(div);
+  });
+
+  availableCountText.innerText = `${list.length} Jobs`;
+  checkEmpty(list.length);
+}
+
+function createCard(job) {
+  let div = document.createElement("div");
+  div.className =
+    "card flex justify-between p-6 bg-white rounded-lg transition duration-300 hover:shadow-xl hover:-translate-y-1";
+
+  div.innerHTML = `
+    <div class="space-y-4">
+      <h2 class="companyName text-[#002C5C] font-extrabold text-xl">
+        ${job.companyName}
+      </h2>
+      <p class="role text-[#64748B]">${job.role}</p>
+      <p class="salary text-[#64748B]">${job.salary}</p>
+      <h2 class="status font-medium rounded-md border p-2 w-[120px] ${getStatusStyle(job.status)}">
+        ${job.status}
+      </h2>
+      <p class="description text-[#323B49]">${job.description}</p>
+      <div class="cardBtn flex gap-2">
+        <button type="button"
+          class="interview-btn border-2 border-green-500 hover:bg-green-600 hover:text-white rounded-md p-2 text-green-500 font-semibold">
+          INTERVIEW
+        </button>
+        <button type="button"
+          class="reject-btn border-2 border-red-500 hover:bg-red-500 hover:text-white rounded-md p-2 text-red-500 font-semibold">
+          REJECTED
+        </button>
+      </div>
+    </div>
+
+    <div class="button-delete flex items-center justify-center h-10 w-10 hover:bg-red-700 rounded-full cursor-pointer">
+      <button>
+        <i class="fa-regular fa-trash-can"></i>
+      </button>
+    </div>
+  `;
+
+  return div;
+}
+
+function getStatusStyle(status) {
+  if (status === "Interviewed")
+    return "bg-green-100 text-green-700 border-green-300";
+  if (status === "Rejected") return "bg-red-100 text-red-700 border-red-300";
+  return "bg-[#EEF4FF] text-[#002C5C]";
+}
+
+document.addEventListener("click", function (event) {
+  const card = event.target.closest(".card");
+  if (!card) return;
+
+  const companyName = card.querySelector(".companyName").innerText;
 
   if (event.target.classList.contains("interview-btn")) {
-    const parentNode = event.target.parentNode.parentNode;
-    const companyName = parentNode.querySelector(".companyName").innerText;
-    const role = parentNode.querySelector(".role").innerText;
-    const salary = parentNode.querySelector(".salary").innerText;
-    const status = parentNode.querySelector(".status").innerText;
-    const description = parentNode.querySelector(".description").innerText;
+    moveToInterview(card, companyName);
+  }
 
-    const cardInfo = {
-      companyName,
-      role,
-      salary,
-      status,
-      description,
-    };
-    const companyExist = interviewList.find(
-      (item) => item.companyName == cardInfo.companyName,
+  if (event.target.classList.contains("reject-btn")) {
+    moveToRejected(card, companyName);
+  }
+
+  if (event.target.closest(".button-delete")) {
+    interviewList = interviewList.filter(
+      (item) => item.companyName !== companyName,
     );
-    parentNode.querySelector(".status").innerText = "Interviewed";
-    if (!companyExist) {
-      interviewList.push(cardInfo);
-    }
-    renderInterview();
+    rejectedList = rejectedList.filter(
+      (item) => item.companyName !== companyName,
+    );
+    card.remove();
+    calculateCount();
+    refreshCurrentTab();
   }
 });
 
-function renderInterview() {
-  filteredSection.innerHTML = "";
-  for (let interview of interviewList) {
-    let div = document.createElement("div");
-    div.className = "card flex justify-between p-6 bg-white rounded-lg";
-    div.innerHTML = `
-		<div class="space-y-4">
-		<h2 class="companyName text-[#002C5C] font-extrabold text-xl">
-		${interview.companyName}
-		</h2>
-		<p class="role text-[#64748B]">React Native Developer</p>
-		<p class="salary text-[#64748B]">
-		Remote • Full-time • $130,000 - $175,000
-		</p>
-		<h2
-		class="status text-[#002C5C] font-medium bg-[#EEF4FF] rounded-md border p-2 w-[120px]"
-		>
-		NOT APPLIED
-		</h2>
-		<p class="description text-[#323B49]">
-		Build cross-platform mobile applications using React Native. Work
-		on products used by millions of users worldwide.
-		</p>
-		<div class="cardBtn flex gap-2">
-		<button
-			type="button"
-			class="interview-btn border-2 border-green-500 hover:bg-green-700 rounded-md p-2 text-green-500 font-semibold"
-		>
-			INTERVIEW
-		</button>
-		<button
-			type="button"
-			class="reject-btn border-2 border-red-500 hover:bg-red-300 rounded-md p-2 text-red-500 font-semibold"
-		>
-			REJECTED
-		</button>
-		</div>
-	</div>
-		`;
-    filteredSection.appendChild(div);
-  }
+function extractData(card) {
+  return {
+    companyName: card.querySelector(".companyName").innerText,
+    role: card.querySelector(".role").innerText,
+    salary: card.querySelector(".salary").innerText,
+    description: card.querySelector(".description").innerText,
+  };
 }
+
+function moveToInterview(card, name) {
+  rejectedList = rejectedList.filter((item) => item.companyName !== name);
+
+  const data = extractData(card);
+  data.status = "Interviewed";
+
+  interviewList = interviewList.filter((item) => item.companyName !== name);
+  interviewList.push(data);
+
+  updateCardStatus(card, "Interviewed");
+  calculateCount();
+  refreshCurrentTab();
+}
+
+function moveToRejected(card, name) {
+  interviewList = interviewList.filter((item) => item.companyName !== name);
+
+  const data = extractData(card);
+  data.status = "Rejected";
+
+  rejectedList = rejectedList.filter((item) => item.companyName !== name);
+  rejectedList.push(data);
+
+  updateCardStatus(card, "Rejected");
+  calculateCount();
+  refreshCurrentTab();
+}
+
+function updateCardStatus(card, status) {
+  const statusEl = card.querySelector(".status");
+  statusEl.innerText = status;
+  statusEl.className =
+    "status font-medium rounded-md border p-2 w-[120px] " +
+    getStatusStyle(status);
+}
+
+function refreshCurrentTab() {
+  if (currentTab === "all") showAll();
+  if (currentTab === "interview") renderFiltered(interviewList);
+  if (currentTab === "rejected") renderFiltered(rejectedList);
+}
+
+calculateCount();
+showAll();
